@@ -1,0 +1,413 @@
+create table estado
+(
+"codestado" varchar (15) primary key not null,
+"descripestad" varchar (50) default null 
+);
+
+
+create table persona 
+(
+"codpersona" varchar (11) primary key not null,
+"nombre" varchar (50)default null,
+"apellidopat" varchar (50)default null,
+"apellidomat" varchar (50)default null,
+"ci" varchar(11)default null,
+"edad" int default null,
+"fechanacim" date default null, 
+"telefono" varchar (10) default null,
+"correo" varchar (50) default null,
+"nacionalid" varchar (50) default null,
+"sexo" int default null,
+"codestado" varchar (15) not null,
+check (codpersona like '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+
+);
+
+create table administrativo 
+(
+"codadministrativo" varchar (15) primary key not null,
+"numcontratadm" int default null,
+"fechcontrat" date default null,
+"cargo" varchar (50) default null,
+"usuario" varchar(50) default null,
+"codpersona" varchar (15) not null,
+"codestado" varchar (15) not null,
+check (codadministrativo like 'ADM[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+);
+create table auxiliar
+(
+"codauxiliar" varchar (15) primary key not null,
+"numcontrataux" int default null,
+"codpersona" varchar (15) not null,
+"codestado" varchar (15) not null,
+check (codauxiliar like 'AUX[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+check (numcontrataux like '>0')
+);
+create table veterinario 
+(
+"codveterinario" varchar (15 )primary key not null,
+"especialidad" varchar (50) default null,
+"sueldo" int default null,
+"codpersona" varchar (15) not null,
+"codestado" varchar (15) not null ,
+check (codveterinario like 'VET[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+);
+
+create table duenio
+(
+"codduenio" varchar (15) primary key not null,
+"nit" int default null,
+"ocupacionduenio" varchar (50) default null,
+"codpersona" varchar (15) not null,
+"codestado" varchar (15) not null,
+check (codduenio like 'DUE[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+);
+
+create table solicita 
+(
+"codsolicita" varchar (15) primary key not null,
+"fechsolicta" date default null,
+"horasolicta" time default null,
+"codduenio" varchar (15) not null,
+"codservicio" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+
+create table servicio
+(
+"codservicio" varchar (15) primary key not null,
+"descripserv" varchar (50) default null,
+"fechservicio" date default null,
+"horaservicio" time default null,
+"designserv" varchar (50) default null,
+"codprecio" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table asiste
+(
+"codasiste" varchar (15) primary key not null,
+"fechasiste" date default null,
+"descripasiste" varchar (50) default null,
+"codanimal" varchar (15) not null,
+"codservicio" varchar (15) not null,
+"codveterinario" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table animal 
+(
+"codanimal" varchar (15) primary key not null,
+"nombreanimal" varchar (50) default null,
+"edadanimal" int  default null,
+"pesoanimal" int  default null,
+"tamanioanim" int  default null,
+"coloranim" varchar (20)  default null,
+"descripanimal" varchar (50)  default null,
+"codraza" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table hospeda
+(
+"codhospeda" varchar (15) primary key not null,
+"fechingrehosp" date default null,
+"fechsalidhosp" date default null,
+"codanimal" varchar (15) not null,
+"codcelda" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table celda
+(
+"codcelda" varchar (15) primary key not null,
+"numcelda" int default null,
+"alturacelda" int default null,
+"espesorcelda" int default null,
+"codestado" varchar (15) not null
+);
+
+create table reguistra
+(
+"codreguistra" varchar (15) primary key not null,
+"descripreguist" varchar (50) default null,
+"fechreguist" date default null,
+"horareguist" time default null,
+"codadministrativo" varchar (15) not null,
+"codservicio" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table posee
+(
+"codposee" varchar (15) primary key not null,
+"descripposee" varchar (50) default null,
+"fechposee" date default null,
+"codpersona" varchar (15) not null,
+"coddireccion" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table precio
+(
+"codprecio" varchar (15) primary key not null,
+"descripprec" varchar (50) default null,
+"prectotal" int default null,
+"codmedicamento" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table raza
+(
+"codraza" varchar (15) primary key not null,
+"descripraz" varchar (50) default null,
+"nacioraz" varchar (20) default null,
+"codestado" varchar (15) not null
+);
+
+create table emergencia
+(
+"codemerg" varchar (15) primary key not null,
+"fechingemer" date default null,
+"fechsalemeg" date default null,
+"motivemerg" varchar (50) default null,
+"codanimal" varchar (15) not null,
+"codveterinario" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table adquiere
+(
+"codadquiere" varchar (15) primary key not null,
+"fechadqui" date default null,
+"descripadqui" varchar (50) default null,
+"codadministrativo" varchar (15) not null,
+"codmedicamento" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table medicamento
+(
+"codmedicamento" varchar (15) primary key not null,
+"descripmedicam" varchar (50) default null,
+"stockmedicam" int default null,
+"fechvencimedicam" date default null,
+"costomedicam" int default null,
+"codestado" varchar (15) not null
+);
+create table suministra
+(
+"codsuministra" varchar (15) primary key not null,
+"presiosuminist" int default null,
+"fechcompra" date default null,
+"descripsuminist" varchar (50) default null,
+"codmedicamento" varchar (15) not null,
+"codproveedor"varchar (15) not null,
+"codestado" varchar (15)  not null
+);
+
+create table proveedor
+(
+"codproveedor" varchar (15) primary key not null,
+"nombencarg" varchar (50) default null,
+"numerencarg"int default null,
+"nombempre" varchar (50) default null,
+"codsuministra" varchar (15) not null,
+"coddireccion" varchar (15) not null,
+"codestado" varchar (15) not null
+);
+
+create table direccion
+(
+"coddireccion" varchar (15) primary key not null,
+"zona" varchar (50) default null,
+"numero" int default null,
+"calle" varchar (50) default null,
+"avenida" varchar (50) default null,
+"codestado" varchar (15) not null,
+"codciudad" varchar (10) not null,
+"codzona" varchar (15) not null,
+check (coddireccion like 'DIR-[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+check (numero>0)
+);
+
+create table pais
+(
+codpais varchar (5) primary key not null,
+nombpais varchar (20) default null,
+emisferpais varchar (20) default null
+);
+
+ create table ciudad
+(codciudad varchar (10) primary key not null,
+nombciudad varchar (35) default null,
+provinciudad varchar (50) default null
+check (nobciudad like A TO Z )
+);
+
+create table zona
+(
+codzona varchar (15) primary key not null,
+nombzona varchar (50) default null,
+distritzona varchar (5) default null,
+codciudad varchar(10) not null,
+
+);
+
+create table telefono
+(
+codtelefono varchar (14) primary key not null,
+numtelefono int default null,
+locatelef varchar (10) default null,
+ubictelef varchar (4) default null,
+codciudad varchar (10) not null,
+codpais varchar (5) not null,
+check (codtelefono like 'TELF[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+check (numtelefono >0)
+);
+
+--corre
+postgres
+
+llaves foraneas de cada tabla 
+
+--llaves foraneas de la tabla asiste
+alter table asiste add constraint codanimal  foreign key (codanimal) references animal (codanimal) on delete cascade on update cascade;
+alter table asiste add constraint codveterinario  foreign key (codveterinario) references veterinario (codveterinario) on delete cascade on update cascade;
+alter table asiste add constraint codservicio  foreign key (codservicio) references servicio (codservicio) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla solicita
+alter table solicita add constraint codduenio  foreign key (codduenio) references duenio (codduenio) on delete cascade on update cascade;
+alter table solicita add constraint codservicio  foreign key (codservicio) references servicio (codservicio) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla hospeda
+alter table hospeda add constraint codanimal  foreign key (codanimal) references animal (codanimal) on delete cascade on update cascade;
+alter table hospeda add constraint codcelda  foreign key (codcelda) references celda (codcelda) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla adquiere
+alter table adquiere add constraint codadministrativo  foreign key (codadministrativo) references administrativo (codadministrativo) on delete cascade on update cascade;
+alter table adquiere add constraint codmedicamento  foreign key (codmedicamento) references medicamento (codmedicamento) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla suministra
+alter table suministra add constraint codmedicamento  foreign key (codmedicamento) references medicamento (codmedicamento) on delete cascade on update cascade;
+alter table suministra add constraint codproveedor  foreign key (codproveedor) references proveedor (codproveedor) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla posee
+alter table posee add constraint codpersona  foreign key (codpersona) references persona (codpersona) on delete cascade on update cascade;
+alter table posee add constraint coddireccion  foreign key (coddireccion) references direccion (coddireccion) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla emergencia
+alter table emergencia add constraint codveterinario  foreign key (codveterinario) references veterinario (codveterinario) on delete cascade on update cascade;
+alter table emergencia add constraint codanimal  foreign key (codanimal) references animal (codanimal) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla reguistra
+alter table reguistra add constraint codadministrativo  foreign key (codadministrativo) references administrativo (codadministrativo) on delete cascade on update cascade;
+alter table reguistra add constraint codservicio  foreign key (codservicio) references servicio (codservicio) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla proveedor
+alter table proveedor add constraint coddireccion  foreign key (coddireccion) references direccion (coddireccion) on delete cascade on update cascade;
+--corre
+--llaves foraneas de la tabla precio
+alter table precio add constraint codmedicamento  foreign key (codmedicamento) references medicamento (codmedicamento) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla servicio
+alter table servicio add constraint codprecio  foreign key (codprecio) references precio (codprecio) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla animal
+alter table animal add constraint codraza  foreign key (codraza) references raza (codraza) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla administrativo
+alter table administrativo add constraint codpersona  foreign key (codpersona) references persona (codpersona) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla auxiliar
+alter table auxiliar add constraint codpersona  foreign key (codpersona) references persona (codpersona) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla veterinario
+alter table veterinario add constraint codpersona  foreign key (codpersona) references persona (codpersona) on delete cascade on update cascade;
+--corre
+
+--llaves foraneas de la tabla duenio
+alter table duenio add constraint codpersona  foreign key (codpersona) references persona (codpersona) on delete cascade on update cascade;
+--corre
+
+--las tablas que llaman a estado
+alter table administrativo add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table persona add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table auxiliar add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table veterinario add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table duenio add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table solicita add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table servicio add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table asiste add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table precio add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table animal add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table estado add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table hospeda add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table celda add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table reguistra add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table posee add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table direccion add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table raza add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table emergencia add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table medicamento add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table adquiere add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table suministra add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+alter table proveedor add constraint codestado  foreign key (codestado) references estado (codestado) on delete cascade on update cascade;
+--corre
+
+PARA LA LLAVE DE ZONA
+alter table zona add constraint codciudad  foreign key (codciudad) references ciudad (codciudad) on delete cascade on update cascade;
+
+para la llave de telefono
+alter table telefono add constraint codciudad  foreign key (codciudad) references ciudad (codciudad) on delete cascade on update cascade;
+alter table telefono add constraint codpais  foreign key (codpais) references pais (codpais) on delete cascade on update cascade;
+
+para la llave de direccion
+alter table direccion add constraint codpais  foreign key (codpais) references pais (codpais) on delete cascade on update cascade;
+alter table direccion add constraint codciudad  foreign key (codciudad) references ciudad (codciudad) on delete cascade on update cascade;
+
+
+alter table  add constraint cod  foreign key (cod) references  (cod) on delete cascade on update cascade;
+
+
+
+
+
+
+para la insersion de datos 
+
+insert into persona
+values (创,创,创,创,创,创,创,创,创,创,);
+
+para eliminar la tabls 
+droop table persona;
+
+
+
+create table solicita 
+(
+codsolicita  varchar (15) primary key,
+fechasoli date default null,
+coddue駉 int not null,
+codservicio int not null
+);
+
+
+alter table solicita add constraint fk_codservicio foreign key (codservicio) references servicio(codservicio)on delete cascade on update cascade;
+alter table veterinario add constraint fk_codpersona foreign key (cod_persona) references persona(cod_persona) on delete cascade on update cascade;
+
+alter table administrativo add constraint fk_codpersona foreign key (codpersona) references nacionalidad (codpersona) on delete cascade on update cascade;
