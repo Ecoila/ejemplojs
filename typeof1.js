@@ -1,0 +1,1 @@
+console.log("typeof 13+7 " + typeof 13+7)
